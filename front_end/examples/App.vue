@@ -40,20 +40,20 @@
           ref="nodeSetting"
           :model="nodeSetting">
         <el-form-item
-            label="节点名称"
+            label="Node name"
             prop="name">
           <el-input
               v-model="nodeSetting.name"
-              placeholder="请输入节点名称"
+              placeholder="Please enter the node name"
               maxlength="30">
           </el-input>
         </el-form-item>
         <el-form-item
-            label="节点描述"
+            label="Node description"
             prop="desc">
           <el-input
               v-model="nodeSetting.desc"
-              placeholder="请输入节点描述"
+              placeholder="Please enter a node description"
               maxlength="30">
           </el-input>
         </el-form-item>
@@ -65,11 +65,11 @@
           ref="linkSetting"
           :model="linkSetting">
         <el-form-item
-            label="连线描述"
+            label="Connection description"
             prop="desc">
           <el-input
               v-model="linkSetting.desc"
-              placeholder="请输入连线描述">
+              placeholder="Please enter a connection description">
           </el-input>
         </el-form-item>
       </el-form>
@@ -78,12 +78,12 @@
           class="dialog-footer">
         <el-button
             @click="drawerConf.cancel">
-          取 消
+          Cancel
         </el-button>
         <el-button
             type="primary"
             @click="settingSubmit">
-          确 定
+          Accept
         </el-button>
       </span>
     </el-dialog>
@@ -113,12 +113,12 @@ export default {
           conf.type = type
           conf.info = info
           if (conf.type === drawerType.node) {
-            conf.title = '节点'
+            conf.title = 'Node'
             if (this.$refs.nodeSetting) this.$refs.nodeSetting.resetFields()
             this.$set(this.nodeSetting, 'name', info.meta.name)
             this.$set(this.nodeSetting, 'desc', info.meta.desc)
           } else {
-            conf.title = '连线'
+            conf.title = 'Connect'
             if (this.$refs.linkSetting) this.$refs.linkSetting.resetFields()
             this.$set(this.linkSetting, 'desc', info.meta ? info.meta.desc : '')
           }
@@ -147,7 +147,7 @@ export default {
       graphMenuList: [
         [
           {
-            label: '开始节点',
+            label: 'label1',
             disable (graph) {
               return !!graph.nodeList.find(node => node.meta.prop === 'start')
             },
@@ -160,14 +160,14 @@ export default {
                   coordinate: coordinate,
                   meta: {
                     prop: 'start',
-                    name: '开始节点'
+                    name: 'start'
                   }
                 })
               }
             }
           },
           {
-            label: '条件节点',
+            label: 'label2',
             disable: false,
             selected: (graph, coordinate) => {
               graph.addNode({
@@ -176,13 +176,13 @@ export default {
                 coordinate: coordinate,
                 meta: {
                   prop: 'condition',
-                  name: '条件节点'
+                  name: 'condition'
                 }
               })
             }
           },
           {
-            label: '审批节点',
+            label: 'label3',
             disable: false,
             selected: (graph, coordinate) => {
               graph.addNode({
@@ -191,13 +191,13 @@ export default {
                 coordinate: coordinate,
                 meta: {
                   prop: 'approval',
-                  name: '审批节点'
+                  name: 'approval'
                 }
               })
             }
           },
           {
-            label: '抄送节点',
+            label: 'label3',
             disable: false,
             selected: (graph, coordinate) => {
               graph.addNode({
@@ -206,13 +206,13 @@ export default {
                 coordinate: coordinate,
                 meta: {
                   prop: 'cc',
-                  name: '抄送节点'
+                  name: 'cc'
                 }
               })
             }
           },
           {
-            label: '结束节点',
+            label: 'label4',
             disable (graph) {
               return !!graph.nodeList.find(point => point.meta.prop === 'end')
             },
@@ -223,7 +223,7 @@ export default {
                 coordinate: coordinate,
                 meta: {
                   prop: 'end',
-                  name: '结束节点'
+                  name: 'end'
                 }
               })
             }
@@ -231,13 +231,13 @@ export default {
         ],
         [
           {
-            label: '打印数据',
+            label: 'label6',
             selected: (graph, coordinate) => {
               console.log(JSON.stringify(graph.toJSON(), null, 2))
             }
           },
           {
-            label: '全选',
+            label: 'label7',
             selected: (graph, coordinate) => {
               graph.selectAll()
             }
@@ -247,7 +247,7 @@ export default {
       nodeMenuList: [
         [
           {
-            label: '删除',
+            label: 'Delete',
             disable: false,
             hidden (node) {
               return node.meta.prop === 'start'
@@ -259,7 +259,7 @@ export default {
         ],
         [
           {
-            label: '编辑',
+            label: 'Configure',
             selected: (node, coordinate) => {
               this.drawerConf.open(drawerType.node, node)
             }
@@ -269,7 +269,7 @@ export default {
       linkMenuList: [
         [
           {
-            label: '删除',
+            label: 'remove1',
             disable: false,
             selected: (link, coordinate) => {
               link.remove()
@@ -278,7 +278,7 @@ export default {
         ],
         [
           {
-            label: '编辑',
+            label: 'configure1',
             disable: false,
             selected: (link, coordinate) => {
               this.drawerConf.open(drawerType.link, link)
@@ -297,7 +297,7 @@ export default {
         'coordinate': [-644, -148],
         'meta': {
           'prop': 'start',
-          'name': '开始节点'
+          'name': 'name1'
         }
       },
       {
@@ -307,7 +307,7 @@ export default {
         'coordinate': [-200, -148],
         'meta': {
           'prop': 'approval',
-          'name': '审批节点',
+          'name': 'name2',
           'desc': '111111'
         }
       },
@@ -318,7 +318,7 @@ export default {
         'coordinate': [-442, -275],
         'meta': {
           'prop': 'condition',
-          'name': '条件节点'
+          'name': 'name3'
         }
       },
       {
@@ -328,7 +328,7 @@ export default {
         'coordinate': [-200, -275],
         'meta': {
           'prop': 'approval',
-          'name': '审批节点'
+          'name': 'name4'
         }
       },
       {
@@ -338,7 +338,7 @@ export default {
         'coordinate': [34, -209],
         'meta': {
           'prop': 'cc',
-          'name': '抄送节点'
+          'name': 'name5'
         }
       },
       {
@@ -348,7 +348,7 @@ export default {
         'coordinate': [286, -133],
         'meta': {
           'prop': 'end',
-          'name': '结束节点'
+          'name': 'name6'
         }
       },
       {
@@ -358,7 +358,7 @@ export default {
         'coordinate': [34, -75],
         'meta': {
           'prop': 'cc',
-          'name': '抄送节点'
+          'name': 'name7'
         }
       },
       {
@@ -368,7 +368,7 @@ export default {
         'coordinate': [-200, -2],
         'meta': {
           'prop': 'approval',
-          'name': '审批节点'
+          'name': 'name8'
         }
       },
       {
@@ -378,7 +378,7 @@ export default {
         'coordinate': [-442, -2],
         'meta': {
           'prop': 'condition',
-          'name': '条件节点'
+          'name': 'name9'
         }
       },
       {
@@ -388,7 +388,7 @@ export default {
         'coordinate': [-442, -148],
         'meta': {
           'prop': 'condition',
-          'name': '条件节点'
+          'name': 'name10'
         }
       }
     ]
