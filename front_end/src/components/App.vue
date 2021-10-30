@@ -123,7 +123,6 @@
 </template>
 
 <script>
-
 const drawerType = {
   node: 0,
   link: 1
@@ -135,7 +134,7 @@ export default {
       drawerType,
       drawerConf: {
         title: '',
-        visible: false,
+        visible: true,
         type: null,
         info: null,
         dialog: false,
