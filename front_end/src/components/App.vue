@@ -4,122 +4,123 @@
  * Time: 9:52
 -->
 <template>
-  <div class="super-flow-base-demo">
-    <super-flow
-        ref="superFlow"
-        :node-list="nodeList"
-        :link-list="linkList"
-        :origin="origin"
-        :graph-menu="graphMenuList"
-        :node-menu="nodeMenuList"
-        :link-menu="linkMenuList"
-        :enter-intercept="enterIntercept"
-        :output-intercept="outputIntercept"
-        :link-desc="linkDesc">
-      <template v-slot:node="{meta}">
-        <div :class="`flow-node flow-node-${meta.prop}`">
-          <header class="ellipsis">
-            {{ meta.name }}
-          </header>
-          <section>
-            {{ meta.desc }}
-          </section>
-        </div>
-      </template>
-    </super-flow>
-    <v-dialog v-model="this.drawerConf.visible">
-      <v-card>
-        <v-card-title class="text-h5">
-          Use Google's location service?
-        </v-card-title>
-
-        <v-card-text>
-          Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-
-          <v-btn
-              color="green darken-1"
-              text
-              @click="dialog = false"
-          >
-            Disagree
-          </v-btn>
-
-          <v-btn
-              color="green darken-1"
-              text
-              @click="dialog = false"
-          >
-            Agree
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-    <el-dialog
-        :title="drawerConf.title"
-        :visible.sync="drawerConf.visible"
-        :close-on-click-modal="false"
-        width="500px">
-      <el-form
-          @keyup.native.enter="settingSubmit"
-          @submit.native.prevent
-          v-show="drawerConf.type === drawerType.node"
-          ref="nodeSetting"
-          :model="nodeSetting">
-        <el-form-item
-            label="Node name"
-            prop="name">
-          <el-input
+  <v-app>
+    <div class="super-flow-base-demo">
+      <super-flow
+          ref="superFlow"
+          :node-list="nodeList"
+          :link-list="linkList"
+          :origin="origin"
+          :graph-menu="graphMenuList"
+          :node-menu="nodeMenuList"
+          :link-menu="linkMenuList"
+          :enter-intercept="enterIntercept"
+          :output-intercept="outputIntercept"
+          :link-desc="linkDesc">
+        <template v-slot:node="{meta}">
+          <div :class="`flow-node flow-node-${meta.prop}`">
+            <header class="ellipsis">
+              {{ meta.name }}
+            </header>
+            <section>
+              {{ meta.desc }}
+            </section>
+          </div>
+        </template>
+      </super-flow>
+      <v-dialog v-model="drawerConf.visible"
+                max-width="70%"
+                class="scenario-dialog"
+      >
+        <v-card height="40vh">
+          <v-text-field
+              label="Название сцены"
+              color="green darken-2"
+              class="pa-5"
               v-model="nodeSetting.name"
-              placeholder="Please enter the node name"
-              maxlength="30">
-          </el-input>
-        </el-form-item>
-        <el-form-item
-            label="Node description"
-            prop="desc">
-          <el-input
+          ></v-text-field>
+          <v-textarea
+              name="input-7-4"
+              color="green darken-2"
+              label="Здесь можно кратко описать что происходит в этой сцене"
+              class="pa-5"
               v-model="nodeSetting.desc"
-              placeholder="Please enter a node description"
-              maxlength="30">
-          </el-input>
-        </el-form-item>
-      </el-form>
-      <el-form
-          @keyup.native.enter="settingSubmit"
-          @submit.native.prevent
-          v-show="drawerConf.type === drawerType.link"
-          ref="linkSetting"
-          :model="linkSetting">
-        <el-form-item
-            label="Connection description"
-            prop="desc">
-          <el-input
-              v-model="linkSetting.desc"
-              placeholder="Please enter a connection description">
-          </el-input>
-        </el-form-item>
-      </el-form>
-      <span
-          slot="footer"
-          class="dialog-footer">
-        <el-button
-            @click="drawerConf.cancel">
-          Cancel
-        </el-button>
-        <el-button
-            type="primary"
-            @click="settingSubmit">
-          Accept
-        </el-button>
-      </span>
-    </el-dialog>
+          ></v-textarea>
+          <v-card-actions>
+            <v-spacer></v-spacer>
 
-  </div>
+            <v-btn
+                color="green"
+                text
+                @click="settingSubmit()"
+            >
+              OK
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <!--    <el-dialog-->
+      <!--        :title="drawerConf.title"-->
+      <!--        :visible.sync="drawerConf.visible"-->
+      <!--        :close-on-click-modal="false"-->
+      <!--        width="500px">-->
+      <!--      <el-form-->
+      <!--          @keyup.native.enter="settingSubmit"-->
+      <!--          @submit.native.prevent-->
+      <!--          v-show="drawerConf.type === drawerType.node"-->
+      <!--          ref="nodeSetting"-->
+      <!--          :model="nodeSetting">-->
+      <!--        <el-form-item-->
+      <!--            label="Node name"-->
+      <!--            prop="name">-->
+      <!--          <el-input-->
+      <!--              v-model="nodeSetting.name"-->
+      <!--              placeholder="Please enter the node name"-->
+      <!--              maxlength="30">-->
+      <!--          </el-input>-->
+      <!--        </el-form-item>-->
+      <!--        <el-form-item-->
+      <!--            label="Node description"-->
+      <!--            prop="desc">-->
+      <!--          <el-input-->
+      <!--              v-model="nodeSetting.desc"-->
+      <!--              placeholder="Please enter a node description"-->
+      <!--              maxlength="30">-->
+      <!--          </el-input>-->
+      <!--        </el-form-item>-->
+      <!--      </el-form>-->
+      <!--      <el-form-->
+      <!--          @keyup.native.enter="settingSubmit"-->
+      <!--          @submit.native.prevent-->
+      <!--          v-show="drawerConf.type === drawerType.link"-->
+      <!--          ref="linkSetting"-->
+      <!--          :model="linkSetting">-->
+      <!--        <el-form-item-->
+      <!--            label="Connection description"-->
+      <!--            prop="desc">-->
+      <!--          <el-input-->
+      <!--              v-model="linkSetting.desc"-->
+      <!--              placeholder="Please enter a connection description">-->
+      <!--          </el-input>-->
+      <!--        </el-form-item>-->
+      <!--      </el-form>-->
+      <!--      <span-->
+      <!--          slot="footer"-->
+      <!--          class="dialog-footer">-->
+      <!--        <el-button-->
+      <!--            @click="drawerConf.cancel">-->
+      <!--          Cancel-->
+      <!--        </el-button>-->
+      <!--        <el-button-->
+      <!--            type="primary"-->
+      <!--            @click="settingSubmit">-->
+      <!--          Accept-->
+      <!--        </el-button>-->
+      <!--      </span>-->
+      <!--    </el-dialog>-->
+
+    </div>
+  </v-app>
 </template>
 
 <script>
@@ -129,15 +130,14 @@ const drawerType = {
 }
 
 export default {
-  data () {
+  data() {
     return {
       drawerType,
       drawerConf: {
         title: '',
-        visible: true,
+        visible: false,
         type: null,
         info: null,
-        dialog: false,
         open: (type, info) => {
           const conf = this.drawerConf
           conf.visible = true
@@ -179,7 +179,7 @@ export default {
         [
           {
             label: 'label1',
-            disable (graph) {
+            disable(graph) {
               return !!graph.nodeList.find(node => node.meta.prop === 'start')
             },
             selected: (graph, coordinate) => {
@@ -244,7 +244,7 @@ export default {
           },
           {
             label: 'label4',
-            disable (graph) {
+            disable(graph) {
               return !!graph.nodeList.find(point => point.meta.prop === 'end')
             },
             selected: (graph, coordinate) => {
@@ -280,10 +280,10 @@ export default {
           {
             label: 'Delete',
             disable: false,
-            hidden (node) {
+            hidden(node) {
               return node.meta.prop === 'start'
             },
-            selected (node, coordinate) {
+            selected(node, coordinate) {
               node.remove()
             }
           }
@@ -319,7 +319,7 @@ export default {
       ]
     }
   },
-  created () {
+  created() {
     const nodeList = [
       {
         'id': 'nodeS3WgFnzCI15X58Qw',
@@ -328,18 +328,7 @@ export default {
         'coordinate': [-644, -148],
         'meta': {
           'prop': 'start',
-          'name': 'name1'
-        }
-      },
-      {
-        'id': 'nodefHsy9uJObPtdHZv1',
-        'width': 160,
-        'height': 80,
-        'coordinate': [-200, -148],
-        'meta': {
-          'prop': 'approval',
-          'name': 'name2',
-          'desc': '111111'
+          'name': 'Начало'
         }
       },
       {
@@ -348,8 +337,8 @@ export default {
         'height': 80,
         'coordinate': [-442, -275],
         'meta': {
-          'prop': 'condition',
-          'name': 'name3'
+          'prop': 'cc',
+          'name': 'Сцена 1.1'
         }
       },
       {
@@ -358,38 +347,8 @@ export default {
         'height': 80,
         'coordinate': [-200, -275],
         'meta': {
-          'prop': 'approval',
-          'name': 'name4'
-        }
-      },
-      {
-        'id': 'nodeqkK9zjcDz53xKRlK',
-        'width': 160,
-        'height': 80,
-        'coordinate': [34, -209],
-        'meta': {
           'prop': 'cc',
-          'name': 'name5'
-        }
-      },
-      {
-        'id': 'nodeDhVU6w2KbEnJCjZs',
-        'width': 80,
-        'height': 50,
-        'coordinate': [286, -133],
-        'meta': {
-          'prop': 'end',
-          'name': 'name6'
-        }
-      },
-      {
-        'id': 'nodesyxisLH1hJDdPsxx',
-        'width': 160,
-        'height': 80,
-        'coordinate': [34, -75],
-        'meta': {
-          'prop': 'cc',
-          'name': 'name7'
+          'name': 'Сцена 1.2'
         }
       },
       {
@@ -398,8 +357,8 @@ export default {
         'height': 80,
         'coordinate': [-200, -2],
         'meta': {
-          'prop': 'approval',
-          'name': 'name8'
+          'prop': 'cc',
+          'name': 'Сцена 2.2'
         }
       },
       {
@@ -408,20 +367,30 @@ export default {
         'height': 80,
         'coordinate': [-442, -2],
         'meta': {
-          'prop': 'condition',
-          'name': 'name9'
+          'prop': 'cc',
+          'name': 'Сцена 2.1'
         }
       },
       {
-        'id': 'node7WXbwOR6kSFD53Hf',
+        'id': 'nodeDhVU6w2KbEnJCjZs',
         'width': 160,
-        'height': 80,
-        'coordinate': [-442, -148],
+        'height': 50,
+        'coordinate': [44, -260],
         'meta': {
-          'prop': 'condition',
-          'name': 'name10'
+          'prop': 'end',
+          'name': 'Концовка 1'
         }
-      }
+      },
+      {
+        'id': 'nodeDhVU6w2KbEnJCjZd',
+        'width': 160,
+        'height': 50,
+        'coordinate': [44, 13],
+        'meta': {
+          'prop': 'end',
+          'name': 'Концовка 2'
+        }
+      },
     ]
     const linkList = [
       {
@@ -511,6 +480,22 @@ export default {
         'startAt': [100, 40],
         'endAt': [0, 40],
         'meta': null
+      },
+      {
+        'id': 'linknL75dQV0AWZA85sq',
+        'startId': 'node0aiA9VuhjkiAdZCs',
+        'endId': 'nodeDhVU6w2KbEnJCjZd',
+        'startAt': [100, 40],
+        'endAt': [0, 25],
+        'meta': null
+      },
+      {
+        'id': 'linkBDUjDzl1LMnbecHI',
+        'startId': 'nodeZBK0ZPpgMe1exezE',
+        'endId': 'nodeDhVU6w2KbEnJCjZs',
+        'startAt': [160, 40],
+        'endAt': [0, 25],
+        'meta': null
       }
     ]
 
@@ -519,7 +504,7 @@ export default {
       this.linkList = linkList
     }, 100)
   },
-  mounted () {
+  mounted() {
     this.$nextTick(() => {
       this.$el.scrollBy({
         left: (this.$el.scrollWidth - this.$el.clientWidth) / 2,
@@ -528,7 +513,7 @@ export default {
     })
   },
   methods: {
-    enterIntercept (formNode, toNode, graph) {
+    enterIntercept(formNode, toNode, graph) {
       const formType = formNode.meta.prop
       switch (toNode.meta.prop) {
         case 'start':
@@ -556,20 +541,22 @@ export default {
           return true
       }
     },
-    outputIntercept (node, graph) {
+    outputIntercept(node, graph) {
       return !(node.meta.prop === 'end')
     },
-    linkDesc (link) {
+    linkDesc(link) {
       return link.meta ? link.meta.desc : ''
     },
-    settingSubmit () {
+    settingSubmit() {
       const conf = this.drawerConf
       if (this.drawerConf.type === drawerType.node) {
         if (!conf.info.meta) conf.info.meta = {}
         Object.keys(this.nodeSetting).forEach(key => {
+          //что за ебаная conf.info.meta
           this.$set(conf.info.meta, key, this.nodeSetting[key])
         })
-        this.$refs.nodeSetting.resetFields()
+        //нужно для element ui
+        // this.$refs.nodeSetting.resetFields()
       } else {
         if (!conf.info.meta) conf.info.meta = {}
         Object.keys(this.linkSetting).forEach(key => {
@@ -578,78 +565,94 @@ export default {
         this.$refs.linkSetting.resetFields()
       }
       conf.visible = false
+      console.log('nodes ', this.nodeList)
+      console.log('links ', this.linkList)
     }
   }
 }
 </script>
 
 <style lang="less">
-.ellipsis {
-  white-space   : nowrap;
-  text-overflow : ellipsis;
-  overflow      : hidden;
-  word-wrap     : break-word;
+//<!--костыль для того чтобы открывался dialog-->
+.v-dialog__container {
+  display: unset !important;
 }
 
+.scenario-dialog {
+  height: 80%;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-wrap: break-word;
+}
+
+.disable-box-shadow {
+  box-shadow: none !important;
+}
+
+
 .super-flow-base-demo {
-  width            : 100%;
-  height           : 800px;
-  margin           : 0 auto;
-  background-color : #f5f5f5;
-  overflow         : scroll;
+  width: 100%;
+  height: 800px;
+  margin: 0 auto;
+  background-color: #f5f5f5;
+  overflow: scroll;
 
   .super-flow {
-    width  : 4000px;
-    height : 4000px;
+    width: 4000px;
+    height: 4000px;
   }
 
   .super-flow__node {
     .flow-node {
       > header {
-        font-size   : 14px;
-        height      : 32px;
-        line-height : 32px;
-        padding     : 0 12px;
-        color       : #ffffff;
+        font-size: 14px;
+        height: 32px;
+        line-height: 32px;
+        padding: 0 12px;
+        color: #ffffff;
       }
 
       > section {
-        text-align  : center;
-        line-height : 20px;
-        overflow    : hidden;
-        padding     : 6px 12px;
-        word-break  : break-all;
+        text-align: center;
+        line-height: 20px;
+        overflow: hidden;
+        padding: 6px 12px;
+        word-break: break-all;
       }
 
       &.flow-node-start {
         > header {
-          background-color : #55abfc;
+          background-color: #55abfc;
         }
       }
 
       &.flow-node-condition {
         > header {
-          background-color : #BC1D16;
+          background-color: #BC1D16;
         }
       }
 
       &.flow-node-approval {
         > header {
-          background-color : rgba(188, 181, 58, 0.76);
+          background-color: rgba(188, 181, 58, 0.76);
         }
       }
 
       &.flow-node-cc {
         > header {
-          background-color : #30b95c;
+          background-color: #30b95c;
         }
       }
 
       &.flow-node-end {
         > header {
-          height           : 50px;
-          line-height      : 50px;
-          background-color : rgb(0, 0, 0);
+          height: 50px;
+          line-height: 50px;
+          background-color: rgb(0, 0, 0);
         }
       }
     }

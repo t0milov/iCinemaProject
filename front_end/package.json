@@ -1,29 +1,27 @@
 {
   "name": "vue-super-flow",
   "version": "1.3.8",
-  "keywords": [
-    "flowChart",
-    "super flow",
-    "vue flow chart",
-    "vue 流程图"
-  ],
-  "license": "MIT",
   "description": "Vue-super-flow is a quick and convenient Vue plug-in to realize flow chart. Demo address: https://caohuatao.github.io/demo/;",
-  "main": "lib/index.umd.min.js",
   "author": "caohuatao <351995664@qq.com>",
-  "homepage": "https://github.com/caohuatao/vue-super-flow",
-  "files": [
-    "/lib/index.umd.min.js",
-    "/lib/index.css",
-    "README.md",
-    "LICENSE"
-  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lib": "vue-cli-service build --target lib --name index --dest lib packages/index.vue",
     "update": "npm run lib && npm publish",
     "update-test": "npm run lib && npm publish --tag=beta"
+  },
+  "main": "lib/index.umd.min.js",
+  "files": [
+    "/lib/index.umd.min.js",
+    "/lib/index.css",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "@mdi/font": "5.9.55",
+    "element-ui": "^2.15.6",
+    "roboto-fontface": "*",
+    "vuetify": "^2.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.13",
@@ -32,19 +30,25 @@
     "less": "^4.1.1",
     "less-loader": "^7.0.0",
     "vue": "^2.6.12",
+    "vue-cli-plugin-vuetify": "~2.4.3",
     "vue-template-compiler": "^2.6.12"
   },
-  "dependencies": {
-    "element-ui": "^2.15.6"
+  "bugs": {
+    "url": "https://github.com/caohuatao/vue-super-flow/issues"
   },
   "directories": {
     "example": "examples"
   },
+  "homepage": "https://github.com/caohuatao/vue-super-flow",
+  "keywords": [
+    "flowChart",
+    "super flow",
+    "vue flow chart",
+    "vue 流程图"
+  ],
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/caohuatao/vue-super-flow.git"
-  },
-  "bugs": {
-    "url": "https://github.com/caohuatao/vue-super-flow/issues"
   }
 }
