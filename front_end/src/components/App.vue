@@ -333,16 +333,16 @@ export default {
       if (this.drawerConf.type === drawerType.node) {
         if (!conf.info.meta) conf.info.meta = {}
         Object.keys(this.nodeSetting).forEach(key => {
-          conf.info.meta.key = this.nodeSetting[key]
-
+          this.$set(conf.info.meta, key, this.nodeSetting[key])
+          // conf.info.meta[key] = this.nodeSetting[key]
         })
-        this.$refs.nodeSetting.resetFields()
+        console.log('Changed node name and desc')
       } else {
         if (!conf.info.meta) conf.info.meta = {}
         Object.keys(this.linkSetting).forEach(key => {
-          conf.info.meta.key = this.linkSetting[key]
+          this.$set(conf.info.meta, key, this.linkSetting[key])
+          // conf.info.meta[key] = this.linkSetting[key]
         })
-        this.$refs.linkSetting.resetFields()
       }
       conf.visible = false
     },
@@ -500,7 +500,7 @@ export default {
       height      : 100%;
       line-height : 40px;
       padding     : 0 6px;
-      font-size   : 12px;
+      font-size   : 20px;
     }
   }
 }
