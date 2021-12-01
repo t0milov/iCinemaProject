@@ -22,9 +22,6 @@
             <header class="ellipsis">
               {{ meta.name }}
             </header>
-            <section>
-              {{ meta.desc }}
-            </section>
           </div>
         </template>
       </super-flow>
@@ -32,6 +29,7 @@
                 max-width="70%"
                 class="scenario-dialog"
       >
+        <div v-show="drawerConf.type === drawerType.node">
         <v-card height="40vh">
           <v-text-field
               label="Название сцены"
@@ -58,6 +56,36 @@
             </v-btn>
           </v-card-actions>
         </v-card>
+        </div>
+
+        <div v-show="drawerConf.type === drawerType.link">
+          <v-card height="40vh">
+            <v-text-field
+                label="Название действия"
+                color="green darken-2"
+                class="pa-5"
+                v-model="linkSetting.desc"
+            ></v-text-field>
+            <v-textarea
+                name="input-7-4"
+                color="green darken-2"
+                label="Здесь можно кратко описать действие"
+                class="pa-5"
+                v-model="linkSetting.name"
+            ></v-textarea>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+
+              <v-btn
+                  color="green"
+                  text
+                  @click="settingSubmit()"
+              >
+                OK
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </div>
       </v-dialog>
       <!--    <el-dialog-->
       <!--        :title="drawerConf.title"-->
@@ -175,10 +203,25 @@ export default {
       nodeList: [],
       linkList: [],
 
+      nodeActions:
+        {
+          createNewNode(node ,graph) {
+            console.log('Вызвался лог')
+            graph.addNode({
+              width: 80,
+              height: 50,
+              coordinate: [100, 100],
+              meta: {
+                name: 'Название'
+              }
+            })
+          }
+        },
+
       graphMenuList: [
         [
           {
-            label: 'label1',
+            label: 'Добавить начало',
             disable(graph) {
               return !!graph.nodeList.find(node => node.meta.prop === 'start')
             },
@@ -198,37 +241,7 @@ export default {
             }
           },
           {
-            label: 'label2',
-            disable: false,
-            selected: (graph, coordinate) => {
-              graph.addNode({
-                width: 160,
-                height: 80,
-                coordinate: coordinate,
-                meta: {
-                  prop: 'condition',
-                  name: 'condition'
-                }
-              })
-            }
-          },
-          {
-            label: 'label3',
-            disable: false,
-            selected: (graph, coordinate) => {
-              graph.addNode({
-                width: 160,
-                height: 80,
-                coordinate: coordinate,
-                meta: {
-                  prop: 'approval',
-                  name: 'approval'
-                }
-              })
-            }
-          },
-          {
-            label: 'label3',
+            label: 'Добавить сцену',
             disable: false,
             selected: (graph, coordinate) => {
               graph.addNode({
@@ -237,24 +250,21 @@ export default {
                 coordinate: coordinate,
                 meta: {
                   prop: 'cc',
-                  name: 'cc'
+                  name: 'Сцена'
                 }
               })
             }
           },
           {
-            label: 'label4',
-            disable(graph) {
-              return !!graph.nodeList.find(point => point.meta.prop === 'end')
-            },
+            label: 'Добавить конец',
             selected: (graph, coordinate) => {
               graph.addNode({
-                width: 80,
+                width: 160,
                 height: 50,
                 coordinate: coordinate,
                 meta: {
                   prop: 'end',
-                  name: 'end'
+                  name: 'Концовка'
                 }
               })
             }
@@ -262,13 +272,13 @@ export default {
         ],
         [
           {
-            label: 'label6',
+            label: 'Сохранить',
             selected: (graph, coordinate) => {
               console.log(JSON.stringify(graph.toJSON(), null, 2))
             }
           },
           {
-            label: 'label7',
+            label: 'Выделить все',
             selected: (graph, coordinate) => {
               graph.selectAll()
             }
@@ -278,7 +288,7 @@ export default {
       nodeMenuList: [
         [
           {
-            label: 'Delete',
+            label: 'Удалить',
             disable: false,
             hidden(node) {
               return node.meta.prop === 'start'
@@ -290,7 +300,7 @@ export default {
         ],
         [
           {
-            label: 'Configure',
+            label: 'Изменить',
             selected: (node, coordinate) => {
               this.drawerConf.open(drawerType.node, node)
             }
@@ -300,7 +310,7 @@ export default {
       linkMenuList: [
         [
           {
-            label: 'remove1',
+            label: 'Удалить действие',
             disable: false,
             selected: (link, coordinate) => {
               link.remove()
@@ -309,7 +319,7 @@ export default {
         ],
         [
           {
-            label: 'configure1',
+            label: 'Изменить действие',
             disable: false,
             selected: (link, coordinate) => {
               this.drawerConf.open(drawerType.link, link)
@@ -323,181 +333,16 @@ export default {
     const nodeList = [
       {
         'id': 'nodeS3WgFnzCI15X58Qw',
-        'width': 100,
+        'width': 160,
         'height': 80,
-        'coordinate': [-644, -148],
+        'coordinate': [-1200, -1600],
         'meta': {
           'prop': 'start',
           'name': 'Начало'
         }
-      },
-      {
-        'id': 'nodeni9QOqT3mI7hsMau',
-        'width': 160,
-        'height': 80,
-        'coordinate': [-442, -275],
-        'meta': {
-          'prop': 'cc',
-          'name': 'Сцена 1.1'
-        }
-      },
-      {
-        'id': 'nodeZBK0ZPpgMe1exezE',
-        'width': 160,
-        'height': 80,
-        'coordinate': [-200, -275],
-        'meta': {
-          'prop': 'cc',
-          'name': 'Сцена 1.2'
-        }
-      },
-      {
-        'id': 'node0aiA9VuhjkiAdZCs',
-        'width': 160,
-        'height': 80,
-        'coordinate': [-200, -2],
-        'meta': {
-          'prop': 'cc',
-          'name': 'Сцена 2.2'
-        }
-      },
-      {
-        'id': 'nodeG3WeFnzCI15X58Qw',
-        'width': 160,
-        'height': 80,
-        'coordinate': [-442, -2],
-        'meta': {
-          'prop': 'cc',
-          'name': 'Сцена 2.1'
-        }
-      },
-      {
-        'id': 'nodeDhVU6w2KbEnJCjZs',
-        'width': 160,
-        'height': 50,
-        'coordinate': [44, -260],
-        'meta': {
-          'prop': 'end',
-          'name': 'Концовка 1'
-        }
-      },
-      {
-        'id': 'nodeDhVU6w2KbEnJCjZd',
-        'width': 160,
-        'height': 50,
-        'coordinate': [44, 13],
-        'meta': {
-          'prop': 'end',
-          'name': 'Концовка 2'
-        }
-      },
-    ]
-    const linkList = [
-      {
-        'id': 'linkcs9ZhumWeTHrtUy8',
-        'startId': 'nodeS3WgFnzCI15X58Qw',
-        'endId': 'nodeni9QOqT3mI7hsMau',
-        'startAt': [100, 40],
-        'endAt': [0, 40],
-        'meta': null
-      },
-      {
-        'id': 'linkBDld5rDBw4C6kiva',
-        'startId': 'nodefHsy9uJObPtdHZv1',
-        'endId': 'nodeqkK9zjcDz53xKRlK',
-        'startAt': [160, 40],
-        'endAt': [0, 40],
-        'meta': null
-      },
-      {
-        'id': 'linkA0ZZxRlDI9AOonuq',
-        'startId': 'node7WXbwOR6kSFD53Hf',
-        'endId': 'nodefHsy9uJObPtdHZv1',
-        'startAt': [160, 40],
-        'endAt': [0, 40],
-        'meta': null
-      },
-      {
-        'id': 'linkhCKTpRAf89gcujGS',
-        'startId': 'nodeni9QOqT3mI7hsMau',
-        'endId': 'nodeZBK0ZPpgMe1exezE',
-        'startAt': [160, 40],
-        'endAt': [0, 40],
-        'meta': null
-      },
-      {
-        'id': 'link2o7VZ7DRaSFKtB0g',
-        'startId': 'nodeqkK9zjcDz53xKRlK',
-        'endId': 'nodeDhVU6w2KbEnJCjZs',
-        'startAt': [160, 40],
-        'endAt': [0, 25],
-        'meta': null
-      },
-      {
-        'id': 'linkII013ovDctUDuPLu',
-        'startId': 'nodeS3WgFnzCI15X58Qw',
-        'endId': 'nodeG3WeFnzCI15X58Qw',
-        'startAt': [100, 40],
-        'endAt': [0, 40],
-        'meta': null
-      },
-      {
-        'id': 'link6MOmsq1EqzlWcG1n',
-        'startId': 'nodeZBK0ZPpgMe1exezE',
-        'endId': 'nodeqkK9zjcDz53xKRlK',
-        'startAt': [160, 40],
-        'endAt': [0, 40],
-        'meta': null
-      },
-      {
-        'id': 'link52SczSXHmuyKDzRU',
-        'startId': 'nodesyxisLH1hJDdPsxx',
-        'endId': 'nodeDhVU6w2KbEnJCjZs',
-        'startAt': [160, 40],
-        'endAt': [0, 25],
-        'meta': null
-      },
-      {
-        'id': 'link2hBQDTuIG4ZFYyE0',
-        'startId': 'node0aiA9VuhjkiAdZCs',
-        'endId': 'nodesyxisLH1hJDdPsxx',
-        'startAt': [160, 40],
-        'endAt': [0, 40],
-        'meta': null
-      },
-      {
-        'id': 'linkrwdW87FmOma5rPVo',
-        'startId': 'nodeG3WeFnzCI15X58Qw',
-        'endId': 'node0aiA9VuhjkiAdZCs',
-        'startAt': [160, 40],
-        'endAt': [0, 40],
-        'meta': null
-      },
-      {
-        'id': 'linknL75dQV0AWZA85sq',
-        'startId': 'nodeS3WgFnzCI15X58Qw',
-        'endId': 'node7WXbwOR6kSFD53Hf',
-        'startAt': [100, 40],
-        'endAt': [0, 40],
-        'meta': null
-      },
-      {
-        'id': 'linknL75dQV0AWZA85sq',
-        'startId': 'node0aiA9VuhjkiAdZCs',
-        'endId': 'nodeDhVU6w2KbEnJCjZd',
-        'startAt': [100, 40],
-        'endAt': [0, 25],
-        'meta': null
-      },
-      {
-        'id': 'linkBDUjDzl1LMnbecHI',
-        'startId': 'nodeZBK0ZPpgMe1exezE',
-        'endId': 'nodeDhVU6w2KbEnJCjZs',
-        'startAt': [160, 40],
-        'endAt': [0, 25],
-        'meta': null
       }
     ]
+    const linkList = []
 
     setTimeout(() => {
       this.nodeList = nodeList
@@ -562,11 +407,10 @@ export default {
         Object.keys(this.linkSetting).forEach(key => {
           this.$set(conf.info.meta, key, this.linkSetting[key])
         })
-        this.$refs.linkSetting.resetFields()
+        // this.$refs.linkSetting.resetFields()
       }
       conf.visible = false
-      console.log('nodes ', this.nodeList)
-      console.log('links ', this.linkList)
+      console.log(conf)
     }
   }
 }
@@ -576,6 +420,12 @@ export default {
 //<!--костыль для того чтобы открывался dialog-->
 .v-dialog__container {
   display: unset !important;
+}
+
+.plus{
+  @node-width: 160px;
+  font-size: 36px;
+  margin-left: @node-width + 10px;
 }
 
 .scenario-dialog {
@@ -596,14 +446,14 @@ export default {
 
 .super-flow-base-demo {
   width: 100%;
-  height: 800px;
+  height: 100%;
   margin: 0 auto;
   background-color: #f5f5f5;
   overflow: scroll;
 
   .super-flow {
-    width: 4000px;
-    height: 4000px;
+    width: 100%;
+    height: 100%;
   }
 
   .super-flow__node {
