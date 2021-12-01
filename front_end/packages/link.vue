@@ -53,7 +53,7 @@
         return Object.assign({
           hover: '#FF0000',
           color: '#666666',
-          textColor: '#666666',
+          textColor: '#000000',
           textHover: '#FF0000',
           font: '14px Arial',
           dotted: false,
