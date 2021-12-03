@@ -9,7 +9,9 @@
           <div class="font1">Интерактивное кино</div>
           <div class="font2">Interactive Movie</div>
           <div class="font3">Your Choose. Your Style. Your Story.</div>
-          <v-btn style="margin-top: 20px; justify-content: center">Создать свой фильм</v-btn>
+          <v-btn style="margin-top: 20px; justify-content: center"
+          to="/graph"
+          >Создать свой фильм</v-btn>
         </div>
       </div>
     </v-row>
@@ -37,10 +39,10 @@ export default {
 }
 
 .screen1 {
-  width: 1920px;
+  width: 100%;
   height: 800px;
-  background-image: url("../assets/screen1.png");
-  background-color: #191919;
+  background: #191919 url("../assets/screen1.png") no-repeat;
+  background-size: cover;
 }
 
 .screen1text{
