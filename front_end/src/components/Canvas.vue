@@ -4,7 +4,7 @@
  * Time: 9:52
 -->
 <template>
-  <v-app>
+  <v-app >
     <div class="super-flow-base-demo">
       <super-flow
           ref="superFlow"
@@ -25,68 +25,71 @@
           </div>
         </template>
       </super-flow>
-      <v-dialog v-model="drawerConf.visible"
-                max-width="70%"
-                class="scenario-dialog"
-      >
-        <div v-show="drawerConf.type === drawerType.node">
-        <v-card height="40vh">
-          <v-text-field
-              label="Название сцены"
-              color="green darken-2"
-              class="pa-5"
-              v-model="nodeSetting.name"
-          ></v-text-field>
-          <v-textarea
-              name="input-7-4"
-              color="green darken-2"
-              label="Здесь можно кратко описать что происходит в этой сцене"
-              class="pa-5"
-              v-model="nodeSetting.desc"
-          ></v-textarea>
-          <v-card-actions>
-            <v-spacer></v-spacer>
+      <form enctype="multipart/form-data">
+        <v-dialog v-model="drawerConf.visible"
+                  max-width="70%"
+                  class="scenario-dialog"
+        >
+          <div v-show="drawerConf.type === drawerType.node">
+            <v-card height="40vh">
+              <v-text-field
+                  label="Название сцены"
+                  color="green darken-2"
+                  class="pa-5"
+                  v-model="nodeSetting.name"
+              ></v-text-field>
+              <v-textarea
+                  name="input-7-4"
+                  color="green darken-2"
+                  label="Здесь можно кратко описать что происходит в этой сцене"
+                  class="pa-5"
+                  v-model="nodeSetting.desc"
+              ></v-textarea>
+              <input type="file" accept="video/*" ref="file" @change="selectFile"></input>
+              <v-card-actions>
+                <v-spacer></v-spacer>
 
-            <v-btn
-                color="green"
-                text
-                @click="settingSubmit()"
-            >
-              OK
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-        </div>
+                <v-btn
+                    color="green"
+                    text
+                    @click="settingSubmit()"
+                >
+                  OK
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </div>
 
-        <div v-show="drawerConf.type === drawerType.link">
-          <v-card height="40vh">
-            <v-text-field
-                label="Название действия"
-                color="green darken-2"
-                class="pa-5"
-                v-model="linkSetting.desc"
-            ></v-text-field>
-            <v-textarea
-                name="input-7-4"
-                color="green darken-2"
-                label="Здесь можно кратко описать действие"
-                class="pa-5"
-                v-model="linkSetting.name"
-            ></v-textarea>
-            <v-card-actions>
-              <v-spacer></v-spacer>
+          <div v-show="drawerConf.type === drawerType.link">
+            <v-card height="40vh">
+              <v-text-field
+                  label="Название действия"
+                  color="green darken-2"
+                  class="pa-5"
+                  v-model="linkSetting.desc"
+              ></v-text-field>
+              <v-textarea
+                  name="input-7-4"
+                  color="green darken-2"
+                  label="Здесь можно кратко описать действие"
+                  class="pa-5"
+                  v-model="linkSetting.name"
+              ></v-textarea>
+              <v-card-actions>
+                <v-spacer></v-spacer>
 
-              <v-btn
-                  color="green"
-                  text
-                  @click="settingSubmit()"
-              >
-                OK
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </div>
-      </v-dialog>
+                <v-btn
+                    color="green"
+                    text
+                    @click="settingSubmit()"
+                >
+                  OK
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </div>
+        </v-dialog>
+      </form>
       <!--    <el-dialog-->
       <!--        :title="drawerConf.title"-->
       <!--        :visible.sync="drawerConf.visible"-->
@@ -152,6 +155,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 const drawerType = {
   node: 0,
   link: 1
@@ -160,6 +165,7 @@ const drawerType = {
 export default {
   data() {
     return {
+      file: "",
       drawerType,
       drawerConf: {
         title: '',
@@ -204,19 +210,19 @@ export default {
       linkList: [],
 
       nodeActions:
-        {
-          createNewNode(node ,graph) {
-            console.log('Вызвался лог')
-            graph.addNode({
-              width: 80,
-              height: 50,
-              coordinate: [100, 100],
-              meta: {
-                name: 'Название'
-              }
-            })
-          }
-        },
+          {
+            createNewNode(node ,graph) {
+              console.log('Вызвался лог')
+              graph.addNode({
+                width: 80,
+                height: 50,
+                coordinate: [100, 100],
+                meta: {
+                  name: 'Название'
+                }
+              })
+            }
+          },
 
       graphMenuList: [
         [
@@ -358,6 +364,20 @@ export default {
     })
   },
   methods: {
+    selectFile() {
+
+      this.file = this.$refs.file.files[0]
+    },
+    async uploadFile(nodeId) {
+      const formData = new FormData()
+      formData.append(nodeId, this.file)
+
+      try {
+        await axios.post('/upload', formData)
+      } catch (err) {
+        console.log(err)
+      }
+    },
     enterIntercept(formNode, toNode, graph) {
       const formType = formNode.meta.prop
       switch (toNode.meta.prop) {
@@ -400,6 +420,7 @@ export default {
           //что за ебаная conf.info.meta
           this.$set(conf.info.meta, key, this.nodeSetting[key])
         })
+        this.uploadFile(conf.info.id)
         //нужно для element ui
         // this.$refs.nodeSetting.resetFields()
       } else {

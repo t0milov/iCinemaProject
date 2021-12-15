@@ -26,11 +26,14 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.13",
+    "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~4.5.13",
+    "axios": "^0.18.0",
     "core-js": "^3.12.1",
     "less": "^4.1.1",
     "less-loader": "^7.0.0",
     "vue": "^2.6.12",
+    "vue-cli-plugin-axios": "~0.0.4",
     "vue-cli-plugin-vuetify": "~2.4.3",
     "vue-template-compiler": "^2.6.12"
   },

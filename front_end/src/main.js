@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import './plugins/axios'
 import App from './components/App'
 import SuperFlow from '../packages/index'
 import ElementUI from 'element-ui'
@@ -7,6 +8,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import vuetify from './plugins/vuetify'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
+import Canvas from "@/components/Canvas";
+import Player from "@/components/Player";
 
 
 Vue.use(SuperFlow)
@@ -16,8 +19,8 @@ Vue.use(VueRouter)
 Vue.config.productionTip = false
 
 const routes = [
-  { path: '/#', component: App },
-  { path: '/graph', component: SuperFlow }
+  { path: '/home', component: Canvas },
+  { path: '/graph', component: App }
 ]
 
 const router = new VueRouter({
@@ -27,5 +30,5 @@ const router = new VueRouter({
 new Vue({
   vuetify,
   router,
-  render: h => h(App)
+  render: h => h(Player)
 }).$mount('#app')
