@@ -30,5 +30,5 @@ const router = new VueRouter({
 new Vue({
   vuetify,
   router,
-  render: h => h(Player)
+  render: h => h(Canvas)
 }).$mount('#app')
