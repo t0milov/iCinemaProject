@@ -370,10 +370,10 @@ export default {
     },
     async uploadFile(nodeId) {
       const formData = new FormData()
-      formData.append(nodeId, this.file)
+      formData.append('fileName', this.file)
 
       try {
-        await axios.post('/upload', formData)
+        await axios.post('http://localhost:5000/api/auth/upload', formData)
       } catch (err) {
         console.log(err)
       }

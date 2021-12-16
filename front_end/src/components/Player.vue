@@ -6,7 +6,7 @@
     </video>
   </div>
   <div :class="{'hidden': isPlayer1Active}" :key="player2NodeId">
-    <video controls muted="muted">
+    <video controls muted="muted" autoplay>
       <source :src="this.baseBackendPath+'/'+player2NodeId" type="video/mp4">
     </video>
   </div>
@@ -16,12 +16,12 @@
 <!--    </video>-->
 <!--  </div>-->
   <div class="action1" id="action1">
-    <v-btn @click="clickAction1">
+    <v-btn @click="clickAction1" :disabled="disableBtn">
       Действие 1
     </v-btn>
   </div>
   <div class="action2" id="action2">
-    <v-btn @click="clickAction2">
+    <v-btn @click="clickAction2" :disabled="disableBtn">
       Действие 2
     </v-btn>
   </div>
@@ -35,25 +35,28 @@ export default {
     return {
       player1NodeId: '1',
       player2NodeId: null,
-      // player3NodeId: '3',
       baseBackendPath: 'http://localhost:8000/video',
       isPlayer1Active: true,
-      // isPlayer2Active: false,
-      // isPlayer3Active: false,
-      currentNodeId: '1'
+      currentNodeId: '1',
+      disableBtn: false,
+      first: true,
+      nodes: [],
+      links: []
     }
   },
   created() {
-
+    this.nodes = ""
   },
   methods: {
     clickAction1() {
+      this.disableBtn = true;
       this.fecthNextVideo(this.getAction1NodeId());
       this.flipActivePlayer();
     },
     clickAction2() {
+      this.disableBtn = true;
       this.fecthNextVideo(this.getAction2NodeId());
-      his.flipActivePlayer();
+      this.flipActivePlayer();
     },
     fecthNextVideo(nextNodeId) {
       if (this.isPlayer1Active) {
@@ -63,13 +66,13 @@ export default {
       }
     },
     getAction1NodeId() {
-      return '2';
+      return this.first ? '2': '4';
     },
     getAction2NodeId() {
-      return '3';
+      return this.first ? '3' : '5';
     },
     flipActivePlayer() {
-      setTimeout(() => {this.isPlayer1Active = !this.isPlayer1Active}, 2000);
+      setTimeout(() => {this.isPlayer1Active = !this.isPlayer1Active; this.disableBtn = false;}, 1000);
     }
   }
 }
