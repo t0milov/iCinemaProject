@@ -42,10 +42,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d1d66646-bf36-476e-8c1e-075587b47d1b" name="Changes" comment="Player">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front_end/vue.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/front_end/vue.config.js" afterDir="false" />
-    </list>
+    <list default="true" id="d1d66646-bf36-476e-8c1e-075587b47d1b" name="Changes" comment="Player" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -148,7 +145,7 @@
       <workItem from="1639664771255" duration="3932000" />
       <workItem from="1639672922693" duration="2605000" />
       <workItem from="1639678064866" duration="14501000" />
-      <workItem from="1639751368591" duration="1029000" />
+      <workItem from="1639751368591" duration="1461000" />
     </task>
     <task id="LOCAL-00001" summary="test commit add requirements.txt">
       <created>1634470642101</created>
@@ -192,7 +189,21 @@
       <option name="project" value="LOCAL" />
       <updated>1639749397250</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Player">
+      <created>1639752514904</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1639752514904</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Player">
+      <created>1639752611028</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1639752611028</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,10 +237,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="715" y="223" key="#xdebugger.evaluate/0.0.1920.1040@0.0.1920.1040" timestamp="1635522806677" />
-    <state x="574" y="88" key="CommitChangelistDialog2" timestamp="1639749396864">
+    <state x="574" y="88" key="CommitChangelistDialog2" timestamp="1639752610607">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="574" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1639749396864" />
+    <state x="574" y="88" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1639752610607" />
     <state x="187" y="86" width="1536" height="860" key="DiffContextDialog" timestamp="1639586770491">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -326,10 +337,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="720" y="224" key="VCS.ChangeListViewerDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1639586527195" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1639749400460">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1639752615746">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1639749400460" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1639752615746" />
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1639586770491">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -342,10 +353,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="512" y="249" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040@0.0.1920.1040" timestamp="1635522744800" />
-    <state x="667" y="253" width="585" height="534" key="find.popup" timestamp="1639751068221">
+    <state x="667" y="253" width="585" height="534" key="find.popup" timestamp="1639752599221">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="667" y="253" width="585" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1639751068221" />
+    <state x="667" y="253" width="585" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1639752599221" />
     <state x="734" y="233" key="git4idea.branch.GitSmartOperationDialog" timestamp="1639584983836">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
