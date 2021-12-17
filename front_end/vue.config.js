@@ -25,4 +25,7 @@ module.exports = {
       umdNamedDefine: true
     }
   },
+  devServer: {
+    proxy: 'https://localhost:5000'
+  }
 }

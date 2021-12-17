@@ -286,7 +286,7 @@ export default {
                 "project": graph.toJSON(),
                 "user": "randomUser"+ Math.random(),
               }
-              axios.post("http://localhost:5000/api/auth/saveProject", body).then((res) => {
+              axios.post("/api/auth/saveProject", body).then((res) => {
                 console.log('saved priject', res)
                 this.$router.push({path: `player/`+ body.projectName});
               });
