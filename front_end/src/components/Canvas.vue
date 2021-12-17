@@ -286,7 +286,7 @@ export default {
                 "project": graph.toJSON(),
                 "user": "randomUser"+ Math.random(),
               }
-              axios.post("/api/auth/saveProject", body).then((res) => {
+              axios.post("http://82.148.28.148:5000/api/auth/saveProject", body).then((res) => {
                 console.log('saved priject', res)
                 this.$router.push({path: `player/`+ body.projectName});
               });
@@ -382,7 +382,7 @@ export default {
       formData.append('fileName', this.file)
 
       try {
-        await axios.post('/api/auth/upload/'+nodeId, formData)
+        await axios.post('http://82.148.28.148:5000/api/auth/upload/'+nodeId, formData)
       } catch (err) {
         console.log(err)
       }

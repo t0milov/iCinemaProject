@@ -24,8 +24,5 @@ module.exports = {
       library: 'SuperFrom',
       umdNamedDefine: true
     }
-  },
-  devServer: {
-    proxy: 'http://localhost:5000'
   }
 }
