@@ -30,7 +30,7 @@ export default {
     return {
       player1NodeId: null,
       player2NodeId: null,
-      baseBackendPath: 'http://localhost:5000/video',
+      baseBackendPath: '/video',
       isPlayer1Active: true,
       currentNode: {},
       currentLinks: [],
@@ -86,7 +86,7 @@ export default {
         }, 1000);
     },
     fecthData() {
-      return axios.get('http://localhost:5000/api/auth/getjson/'+this.$route.params.projectName)
+      return axios.get('/api/auth/getjson/'+this.$route.params.projectName)
     },
       setCurrentNode(nodeId) {
       console.log('Setting current node', nodeId)
