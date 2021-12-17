@@ -281,6 +281,15 @@ export default {
             label: 'Сохранить',
             selected: (graph, coordinate) => {
               console.log(JSON.stringify(graph.toJSON(), null, 2))
+              const body = {
+                "projectName": "test" + Math.random(),
+                "project": graph.toJSON(),
+                "user": "randomUser"+ Math.random(),
+              }
+              axios.post("http://localhost:5000/api/auth/saveProject", body).then((res) => {
+                console.log('saved priject', res)
+                this.$router.push({path: `player/`+ body.projectName});
+              });
             }
           },
           {
@@ -373,7 +382,7 @@ export default {
       formData.append('fileName', this.file)
 
       try {
-        await axios.post('http://localhost:5000/api/auth/upload', formData)
+        await axios.post('http://localhost:5000/api/auth/upload/'+nodeId, formData)
       } catch (err) {
         console.log(err)
       }

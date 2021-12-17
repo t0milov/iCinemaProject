@@ -1,27 +1,12 @@
 <template>
-  <v-content style="font-family: Roboto">
-    <div class="header">
-      <div class="logo"></div>
-    </div>
-    <v-row :justify="'center'">
-      <div class="screen1">
-        <div class="screen1text">
-          <div class="font1">Интерактивное кино</div>
-          <div class="font2">Interactive Movie</div>
-          <div class="font3">Your Choose. Your Style. Your Story.</div>
-          <v-btn style="margin-top: 20px; justify-content: center"
-          to="/graph"
-          >Создать свой фильм</v-btn>
-        </div>
-      </div>
-    </v-row>
-  </v-content>
-
+  <div id="app">
+   <router-view></router-view>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "App"
+  name: "App",
 }
 </script>
 

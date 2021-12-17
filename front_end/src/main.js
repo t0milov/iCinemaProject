@@ -9,7 +9,7 @@ import vuetify from './plugins/vuetify'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 import Canvas from "@/components/Canvas";
-import Player from "@/components/Player";
+import router from "./router/index"
 
 
 Vue.use(SuperFlow)
@@ -18,17 +18,8 @@ Vue.use(VueRouter)
 
 Vue.config.productionTip = false
 
-const routes = [
-  { path: '/home', component: Canvas },
-  { path: '/graph', component: App }
-]
-
-const router = new VueRouter({
-  routes // сокращённая запись для `routes: routes`
-})
-
 new Vue({
   vuetify,
   router,
-  render: h => h(Canvas)
+  render: h => h(App)
 }).$mount('#app')
